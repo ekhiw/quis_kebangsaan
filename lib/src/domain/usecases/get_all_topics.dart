@@ -1,4 +1,5 @@
 
+import 'package:quis_kebangsaan/src/domain/entities/Topic.dart';
 import 'package:quis_kebangsaan/src/domain/repository/base_repository.dart';
 
 class GetAllTopics {
@@ -6,7 +7,7 @@ class GetAllTopics {
 
   GetAllTopics(this.repository);
 
-  Future<List<Object>> execute() {
+  Future<List<Topic>> execute() {
     return repository.getAllTopics();
   }
 }
