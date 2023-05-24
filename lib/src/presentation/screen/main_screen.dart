@@ -57,7 +57,9 @@ class _MainPageState extends State<MainScreen> {
             ),
             SizedBox(height: 16),
             OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/topics');
+              },
               child: Text('Options'),
               style: OutlinedButton.styleFrom(
                   side: BorderSide(color: Colors.blue),

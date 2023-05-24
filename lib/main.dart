@@ -5,6 +5,7 @@ import 'package:quis_kebangsaan/src/commons/utils.dart';
 import 'package:quis_kebangsaan/src/presentation/bloc/dashboard/dashboard_bloc.dart';
 import 'package:quis_kebangsaan/src/presentation/screen/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:quis_kebangsaan/src/presentation/screen/topic_screen.dart';
 import 'firebase_options.dart';
 import 'package:quis_kebangsaan/injection.dart' as di;
 
@@ -42,6 +43,8 @@ class MyApp extends StatelessWidget {
             switch (settings.name) {
               case '/':
                 return MaterialPageRoute(builder: (_) => const MainScreen());
+              case '/topics':
+                return MaterialPageRoute(builder: (_) => const TopicScreen());
             }
           },
         ),
