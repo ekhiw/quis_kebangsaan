@@ -1,3 +1,6 @@
 abstract class DashboardEvent {}
 
-class InitDashboardEvent extends DashboardEvent {}
+class InitDashboardEvent extends DashboardEvent {
+
+
+}
