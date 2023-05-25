@@ -38,13 +38,17 @@ class _QuestionScreenState extends State<QuestionScreen> {
         "answer" : answer
       };
       if (questionNumber>=4) {
+        var resultArg = {
+          "answer" : answer
+        };
         Navigator.pushNamedAndRemoveUntil(
             context,
-            '/',
+            '/result',
             (route) {
               print(route);
               return route.isFirst;
-            }
+            },
+            arguments: resultArg
         );
       } else {
         Navigator.pushNamed(

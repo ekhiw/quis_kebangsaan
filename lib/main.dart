@@ -7,6 +7,7 @@ import 'package:quis_kebangsaan/src/presentation/bloc/dashboard/dashboard_bloc.d
 import 'package:quis_kebangsaan/src/presentation/screen/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:quis_kebangsaan/src/presentation/screen/question_screen.dart';
+import 'package:quis_kebangsaan/src/presentation/screen/result_screen.dart';
 import 'package:quis_kebangsaan/src/presentation/screen/topic_screen.dart';
 import 'firebase_options.dart';
 import 'package:quis_kebangsaan/injection.dart' as di;
@@ -50,6 +51,9 @@ class MyApp extends StatelessWidget {
               case '/question':
                 Map arg = settings.arguments as Map;
                 return MaterialPageRoute(builder: (_) => QuestionScreen(argument: arg,),settings: settings);
+              case '/result':
+                Map arg = settings.arguments as Map;
+                return MaterialPageRoute(builder: (_) => ResultScreen(argument: arg,),settings: settings);
             }
           },
         ),
