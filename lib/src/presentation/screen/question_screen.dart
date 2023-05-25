@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quis_kebangsaan/src/domain/entities/Topic.dart';
 
 class QuestionScreen extends StatefulWidget {
-  final Topic argument;
+  final Map argument;
   const QuestionScreen({super.key,required this.argument});
 
 
@@ -15,17 +15,47 @@ class _QuestionScreenState extends State<QuestionScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.argument);
-    // Future.microtask(() =>
-    //     Provider.of<ArticleCategoryBloc>(context, listen: false)
-    //         .add(FetchArticleCategory(widget.category)),);
+    print(widget.argument["topic"]);
+    print(widget.argument["question_number"]);
+    print(widget.argument["answer"]);
   }
 
   @override
   Widget build(BuildContext context) {
+    var topic = widget.argument["topic"] as Topic;
+    var questionNumber = widget.argument["question_number"] as int;
+    var answer = widget.argument["answer"] as List<bool>;
+
+    handleAnswer(bool correct) {
+      if (answer.length<=questionNumber) {
+        answer.add(correct);
+      } else {
+        answer[questionNumber] = correct;
+      }
+      var arg = {
+        "topic" :topic,
+        "question_number" : questionNumber + 1,
+        "answer" : answer
+      };
+      if (questionNumber>=4) {
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/',
+            (route) {
+              print(route);
+              return route.isFirst;
+            }
+        );
+      } else {
+        Navigator.pushNamed(
+            context,
+            '/question',
+            arguments: arg);
+      }
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text('test'),
+        title: Text('Quiz - ${topic.name}'),
       ),
       body: Center(
         child: Column(
@@ -46,7 +76,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                     children: [
                       Image.asset('assets/images/image1.png'),
                       const SizedBox(height: 8),
-                      Text('This is a quiz question.This is a quiz question.This is a quiz question.This is a quiz question.',
+                      Text('This is a quiz question number ${questionNumber + 1}',
                           style: TextStyle(fontSize: 18)),
                     ],
                   ),
@@ -58,8 +88,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 MaterialButton(
-                  onPressed: () {},
-                  child: Text('Option 1',
+                  onPressed: () {
+                    handleAnswer(true);
+                  },
+                  child: Text('Correct Answer',
                     style: TextStyle(fontSize: 18),),
                   minWidth: MediaQuery.of(context).size.width * 0.7,
                   height : 50,
@@ -68,8 +100,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 ),
                 SizedBox(height: 16),
                 MaterialButton(
-                  onPressed: () {},
-                  child: Text('Option 2',
+                  onPressed: () {
+                    handleAnswer(false);
+                  },
+                  child: Text('Wrong Answer',
                     style: TextStyle(fontSize: 18),),
                   minWidth: MediaQuery.of(context).size.width * 0.7,
                   height : 50,
@@ -78,8 +112,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 ),
                 SizedBox(height: 16),
                 MaterialButton(
-                  onPressed: () {},
-                  child: Text('Option 3',
+                  onPressed: () {
+                    handleAnswer(false);
+                  },
+                  child: Text('Wrong Answer',
                     style: TextStyle(fontSize: 18),),
                   minWidth: MediaQuery.of(context).size.width * 0.7,
                   height : 50,
@@ -88,8 +124,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 ),
                 SizedBox(height: 16),
                 MaterialButton(
-                  onPressed: () {},
-                  child: Text('Option 4',
+                  onPressed: () {
+                    handleAnswer(false);
+                  },
+                  child: Text('Wrong Answer',
                     style: TextStyle(fontSize: 18),),
                   minWidth: MediaQuery.of(context).size.width * 0.7,
                   height : 50,

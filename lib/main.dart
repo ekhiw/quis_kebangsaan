@@ -48,12 +48,8 @@ class MyApp extends StatelessWidget {
               case '/topics':
                 return MaterialPageRoute(builder: (_) => const TopicScreen());
               case '/question':
-                Topic arg = const Topic(id: 0, name: "name", desc: "desc");
-                if (settings.arguments is Topic) {
-                  arg = settings.arguments as Topic;
-                }
-                final payload = arg;
-                return MaterialPageRoute(builder: (_) => QuestionScreen(argument: payload,),settings: settings);
+                Map arg = settings.arguments as Map;
+                return MaterialPageRoute(builder: (_) => QuestionScreen(argument: arg,),settings: settings);
             }
           },
         ),

@@ -64,10 +64,16 @@ class _TopicScreenState extends State<TopicScreen> {
               return Padding(padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
                   onPressed: () {
+                    var arg = {
+                      "topic" :state is DashboardLoaded ? state.topics[index] : Topic(id: 0, name: "test", desc: "testtttttttt"),
+                      "question_number" : 0,
+                      "answer" : List<bool>.of([])
+                    };
                     Navigator.pushReplacementNamed(
                         context,
                         '/question',
-                        arguments: state is DashboardLoaded ? state.topics[index] : Topic(id: 0, name: "test", desc: "testtttttttt"));
+                        arguments: arg
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
