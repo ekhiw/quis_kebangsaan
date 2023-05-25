@@ -14,7 +14,12 @@ class MainRepository extends BaseRepository {
     @override
     Future<List<Topic>> getAllTopics() async {
         // handle data source here
-        print('GET DATA');
         return firebaseDataSource.getAllTopics();
+    }
+
+    @override
+    Future<List<Topic>> searchTopic(String query) {
+        // handle data source here
+        return firebaseDataSource.searchTopic(query);
     }
 }

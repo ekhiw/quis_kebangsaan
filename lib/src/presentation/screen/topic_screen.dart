@@ -7,6 +7,8 @@ import 'package:quis_kebangsaan/src/presentation/bloc/dashboard/dashboard_bloc.d
 import 'package:quis_kebangsaan/src/presentation/bloc/dashboard/dashboard_event.dart';
 import 'package:quis_kebangsaan/src/presentation/bloc/dashboard/dashboard_state.dart';
 
+String _query = '';
+
 class TopicScreen extends StatefulWidget {
   const TopicScreen({super.key});
 
@@ -36,49 +38,41 @@ class _TopicScreenState extends State<TopicScreen> {
           padding: const EdgeInsets.all(16),
           child: BlocBuilder<DashboardBloc, DashboardState> (
             builder: (context, state) {
-              if(state is DashboardLoaded) {
-                return _topicList(context,state.topics);
-              } else {
-                return const Text("hehehe");
-              }
+              return _topicList(context,state);
             }
         ),
       )
     );
   }
 
-  Widget _topicList(BuildContext context, List<Topic> topics) {
+  Widget _topicList(BuildContext context, DashboardState state) {
     return Column(
       children: [
         // Search bar
         TextField(
-          onChanged: (value) {
-            // Filter topics by name
-            List<Topic> filteredTopics = topics;
-            if (value.isNotEmpty) {
-              print("EKHIW $value");
-              filteredTopics = topics.where((topic) {
-                return (topic.name ?? '').toLowerCase().contains(value.toLowerCase());
-              }).toList();
-            }
-            topics = filteredTopics;
-
-            print("EKHIW TOPICS $topics");
+          onChanged: (query) {
+            _query = query;
+            context.read<DashboardBloc>().add(OnQueryChanged(query));
           },
         ),
         SizedBox(height: 32),
         // List of topics
         Expanded(
           child: ListView.builder(
-            itemCount: topics.length,
+            itemCount: state is DashboardLoaded ? state.topics.length : 0,
             itemBuilder: (context, index) {
               return Padding(padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context,
+                        '/question',
+                        arguments: state is DashboardLoaded ? state.topics[index] : Topic(id: 0, name: "test", desc: "testtttttttt"));
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(topics[index].name ?? ""),
+                      Text(state is DashboardLoaded ? state.topics[index].name ?? "" : ""),
                       const Icon(Icons.chevron_right),
                     ],
                   ),

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:quis_kebangsaan/src/commons/utils.dart';
+import 'package:quis_kebangsaan/src/domain/entities/Topic.dart';
 import 'package:quis_kebangsaan/src/presentation/bloc/dashboard/dashboard_bloc.dart';
 import 'package:quis_kebangsaan/src/presentation/screen/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:quis_kebangsaan/src/presentation/screen/question_screen.dart';
 import 'package:quis_kebangsaan/src/presentation/screen/topic_screen.dart';
 import 'firebase_options.dart';
 import 'package:quis_kebangsaan/injection.dart' as di;
@@ -45,6 +47,13 @@ class MyApp extends StatelessWidget {
                 return MaterialPageRoute(builder: (_) => const MainScreen());
               case '/topics':
                 return MaterialPageRoute(builder: (_) => const TopicScreen());
+              case '/question':
+                Topic arg = const Topic(id: 0, name: "name", desc: "desc");
+                if (settings.arguments is Topic) {
+                  arg = settings.arguments as Topic;
+                }
+                final payload = arg;
+                return MaterialPageRoute(builder: (_) => QuestionScreen(argument: payload,),settings: settings);
             }
           },
         ),

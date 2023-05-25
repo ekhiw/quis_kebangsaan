@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:quis_kebangsaan/injection.dart';
+import 'package:quis_kebangsaan/src/domain/entities/Topic.dart';
 import 'package:quis_kebangsaan/src/presentation/bloc/dashboard/dashboard_bloc.dart';
 import 'package:quis_kebangsaan/src/presentation/bloc/dashboard/dashboard_event.dart';
 
@@ -47,7 +48,12 @@ class _MainPageState extends State<MainScreen> {
             Text('This is a quiz.'),
             SizedBox(height: 16),
             MaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                  Navigator.pushNamed(
+                      context,
+                      '/question',
+                      arguments: const Topic(id: 0, name: "test", desc: "testtttttttt"));
+                },
               child: Text('Play',
                 style: TextStyle(fontSize: 20),),
               minWidth: 200,
@@ -71,13 +77,25 @@ class _MainPageState extends State<MainScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.share),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.share),
+                    ),
+                    const Text("Share")
+                  ],
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.star),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.star),
+                    ),
+                    const Text("Rate us")
+                  ],
                 ),
               ],
             ),
