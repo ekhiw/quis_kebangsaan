@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:quis_kebangsaan/src/presentation/bloc/dashboard/dashboard_bloc.dart';
 import 'package:quis_kebangsaan/src/presentation/bloc/dashboard/dashboard_event.dart';
 import 'package:quis_kebangsaan/src/presentation/bloc/dashboard/dashboard_state.dart';
+import 'package:share_plus/share_plus.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -97,25 +98,19 @@ class _MainPageState extends State<MainScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.share),
-                  ),
-                  const Text("Share")
-                ],
+              TextButton.icon(
+                onPressed: () {
+                  Share.share('Halo, kuis kebangsaan passwordnya?');
+                },
+                icon:Icon(Icons.share),
+                label: Text("Share"),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.star),
-                  ),
-                  const Text("Rate us")
-                ],
+              TextButton.icon(
+                onPressed: () {
+
+                },
+                icon:Icon(Icons.star),
+                label: Text("Rate us"),
               ),
             ],
           ),

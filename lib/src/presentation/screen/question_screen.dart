@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:quis_kebangsaan/src/commons/utils.dart';
 import 'package:quis_kebangsaan/src/domain/entities/Topic.dart';
+import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 
 class QuestionScreen extends StatefulWidget {
   final Map argument;
@@ -51,7 +53,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
             arguments: resultArg
         );
       } else {
-        Navigator.pushNamed(
+        Navigator.popAndPushNamed(
             context,
             '/question',
             arguments: arg);
@@ -65,6 +67,18 @@ class _QuestionScreenState extends State<QuestionScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            TimerCountdown(
+              format: CountDownTimerFormat.secondsOnly,
+              enableDescriptions: false,
+              endTime: DateTime.now().add(
+                Duration(
+                  seconds: 30,
+                ),
+              ),
+              onEnd: () {
+                handleAnswer(false);
+              },
+            ),
             Container(
               constraints: BoxConstraints(
                   minWidth: MediaQuery.of(context).size.width * 0.75,
@@ -78,7 +92,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Image.asset('assets/images/image1.png'),
+                      Image.asset('assets/images/image1.png',
+                        height: 200),
                       const SizedBox(height: 8),
                       Text('This is a quiz question number ${questionNumber + 1}',
                           style: TextStyle(fontSize: 18)),
